@@ -14,6 +14,12 @@ secret_key = "xyz"
 # 8. Assign an elastic Ip to the network interface created in step 7
 # 9. Create Ubuntu server and install/enable apache2
 
+variable "subnet_prefix" {
+  description = "cidr block for the subnet"
+  #default = 
+  #type = 
+}
+
 # 1. Create vpc
 resource "aws_vpc" "first-project-vpc" {
   cidr_block = "10.0.0.0/16"
@@ -55,7 +61,8 @@ resource "aws_route_table" "first-project-route-table" {
 # 4. Create a Subnet
 resource "aws_subnet" "subnet-1" {
   vpc_id     = aws_vpc.first-project-vpc.id
-  cidr_block = "10.0.1.0/24"
+  cidr_block = var.subnet_prefix
+  #cidr_block = "10.0.1.0/24"
   availability_zone = "ca-central-1a"
   tags = {
     Name = "1st-Project-Subnet"
